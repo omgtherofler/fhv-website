@@ -752,6 +752,8 @@ function FormField({ label, value, onChange, inputType = 'text', required }) {
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', topic: 'weg', msg: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
   const a = C.contact;
 
   return (
@@ -785,7 +787,14 @@ function Contact() {
             </div>
           </div>
 
-          <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+          <form onSubmit={async (e) => {
+          e.preventDefault(); setSending(true); setSendError('');
+          try {
+            const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, topic: form.topic, message: form.msg }) });
+            if (res.ok) { setSubmitted(true); } else { const d = await res.json(); setSendError(d.error || 'Fehler beim Senden.'); }
+          } catch { setSendError('Verbindungsfehler. Bitte versuchen Sie es erneut.'); }
+          setSending(false);
+        }}
             style={{ background: T.surface, border: `1px solid ${T.rule}`, padding: 36 }}>
             {submitted ? (
               <div style={{ padding: '40px 0', textAlign: 'center' }}>
@@ -831,10 +840,12 @@ function Contact() {
                   border: 'none', cursor: 'pointer', letterSpacing: '0.02em', fontWeight: 500,
                   transition: 'opacity .15s',
                 }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.88')}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}>
-                  Termin anfragen →
+                  onMouseEnter={(e) => !sending && (e.currentTarget.style.opacity = '0.88')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = sending ? '0.7' : '1')}
+                  disabled={sending}>
+                  {sending ? 'Wird gesendet…' : 'Termin anfragen →'}
                 </button>
+                {sendError && <div style={{ marginTop: 10, padding: '10px 14px', background: '#fee2e2', color: '#b91c1c', fontFamily: TY.body, fontSize: 13 }}>{sendError}</div>}
                 <div style={{ fontFamily: TY.body, fontSize: 12, color: T.muted, marginTop: 12, textAlign: 'center' }}>
                   Antwort innerhalb 24 Stunden · DSGVO-konform
                 </div>
@@ -887,7 +898,10 @@ function Footer() {
           ))}
         </div>
         <div style={{ borderTop: `1px solid ${T.rule}`, paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontFamily: TY.body, fontSize: 12, color: T.muted }}>
-          <span>© 2026 FHV Freiburger Hausverwaltung OHG</span>
+          <span style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+            <span>© 2026 FHV Freiburger Hausverwaltung OHG</span>
+            <a href="/admin" style={{ color: T.muted, textDecoration: 'none', opacity: 0.6 }}>Admin</a>
+          </span>
           <span style={{ display: 'flex', gap: 20 }}>
             {['Datenschutz', 'Impressum', 'AGB'].map((l) => (
               <a key={l} href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{l}</a>
