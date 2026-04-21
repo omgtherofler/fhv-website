@@ -1,8 +1,4 @@
-import { serialize } from 'cookie';
-
 export default function handler(req, res) {
-  res.setHeader('Set-Cookie', serialize('fhv_token', '', {
-    httpOnly: true, path: '/', maxAge: 0,
-  }));
+  res.setHeader('Set-Cookie', 'fhv_token=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax');
   res.status(200).json({ ok: true });
 }
