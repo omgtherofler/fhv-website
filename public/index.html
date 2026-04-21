@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hausverwaltung</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fa-solid fa-building"></i>
+        <span class="logo-text">HausVerwaltung</span>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="#" class="nav-link active" data-view="dashboard">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="liegenschaften">
+            <i class="fa-solid fa-city"></i>
+            <span>Liegenschaften</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="wohnungen">
+            <i class="fa-solid fa-door-open"></i>
+            <span>Wohnungen</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="mieter">
+            <i class="fa-solid fa-users"></i>
+            <span>Mieter</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="vertraege">
+            <i class="fa-solid fa-file-contract"></i>
+            <span>Mietverträge</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="zahlungen">
+            <i class="fa-solid fa-euro-sign"></i>
+            <span>Zahlungen</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="wartung">
+            <i class="fa-solid fa-wrench"></i>
+            <span>Wartung</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-view="dokumente">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>Dokumente</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-view="einstellungen">
+        <i class="fa-solid fa-gear"></i>
+        <span>Einstellungen</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-toggle" id="mobileToggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="breadcrumb" id="breadcrumb">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" title="Benachrichtigungen">
+          <i class="fa-solid fa-bell"></i>
+          <span class="badge">3</span>
+        </button>
+        <div class="user-avatar">
+          <i class="fa-solid fa-user"></i>
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="content" id="content">
+      <!-- Views are rendered by JavaScript -->
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Titel</h3>
+        <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter">
+        <button class="btn btn-secondary" id="modalCancelBtn">Abbrechen</button>
+        <button class="btn btn-primary" id="modalConfirmBtn">Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
